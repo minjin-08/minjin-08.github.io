@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김민진 포트폴리오</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black:   #000000;
+      --white:   #ffffff;
+      --gray-50: #f5f5f7;
+      --gray-100:#e8e8ed;
+      --gray-300:#a1a1a6;
+      --gray-500:#6e6e73;
+      --gray-700:#3a3a3c;
+      --gray-900:#1d1d1f;
+      --blue:    #0071e3;
+      --blue-soft:#e8f0fb;
+      --font-sans: 'Noto Sans KR', -apple-system, sans-serif;
+      --font-serif:'Noto Serif KR', Georgia, serif;
+      --max-width: 980px;
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--white); color: var(--gray-900); line-height: 1.6; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 52px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 400; color: var(--gray-700); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gray-900); text-decoration: none; }
+    #admin-toggle-btn { font-size: 0.75rem; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--gray-300); background: transparent; cursor: pointer; color: var(--gray-500); transition: all 0.2s; }
+    #admin-toggle-btn:hover { border-color: var(--gray-700); color: var(--gray-900); }
+    @media (max-width: 680px) { .nav-links { display: none; } }
+
+    /* SECTION SYSTEM */
+    .sec-dark  { background: var(--black); color: var(--white); }
+    .sec-light { background: var(--gray-50); color: var(--gray-900); }
+    .sec-white { background: var(--white); color: var(--gray-900); }
+    .sec-pad { padding: 100px 0; }
+
+    .sec-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; display: block; }
+    .sec-dark .sec-label { color: #6cb4f7; }
+
+    .sec-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+
+    .sec-sub { font-size: 1rem; font-weight: 300; color: var(--gray-500); max-width: 560px; line-height: 1.75; }
+    .sec-dark .sec-sub { color: var(--gray-300); }
+
+    .section-divider { width: 36px; height: 2px; background: var(--blue); margin: 1rem 0 2.5rem; }
+    .sec-dark .section-divider { background: #6cb4f7; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; background: var(--black); color: var(--white);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 120px 2rem 80px; position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 30%, #1a3a5c 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-photo-wrap {
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--gray-700); border: 2px solid rgba(255,255,255,0.15);
+      overflow: hidden; margin: 0 auto 2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; color: var(--gray-300); text-align: center; position: relative; z-index: 1;
+    }
+    .hero-name { font-family: var(--font-serif); font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .hero-tagline { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 300; color: var(--gray-300); margin-bottom: 2rem; position: relative; z-index: 1; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+    .chip { display: inline-block; font-size: 0.78rem; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-100); background: rgba(255,255,255,0.06); }
+    .hero-bio { font-size: 1rem; font-weight: 300; color: var(--gray-300); max-width: 560px; line-height: 1.85; position: relative; z-index: 1; }
+    .hero-scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--gray-500); font-size: 0.72rem; letter-spacing: 0.08em; z-index: 1; animation: bob 2s ease-in-out infinite; }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+    .hero-scroll-hint::after { content:''; display:block; width:1px; height:36px; background:linear-gradient(to bottom, var(--gray-500), transparent); }
+
+    /* ABOUT */
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-dl { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; margin-top: 1rem; }
+    .about-item dt { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-300); margin-bottom: 4px; }
+    .about-item dd { font-size: 0.95rem; font-weight: 500; color: var(--gray-900); }
+    .about-text-col p { font-size: 0.97rem; font-weight: 300; color: var(--gray-500); line-height: 1.9; margin-bottom: 1.2rem; }
+    @media (max-width: 680px) { .about-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ACTIVITIES */
+    .activity-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .activity-row { display: grid; grid-template-columns: 110px 1fr auto; gap: 2rem; align-items: baseline; padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.2s; }
+    .activity-row:hover { background: rgba(255,255,255,0.03); padding-left: 0.75rem; padding-right: 0.75rem; margin: 0 -0.75rem; border-radius: 8px; border-bottom-color: transparent; }
+    .act-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-300); white-space: nowrap; text-align: center; }
+    .act-tag.type-school    { border-color: #6cb4f7; color: #6cb4f7; }
+    .act-tag.type-outside   { border-color: #86dfa8; color: #86dfa8; }
+    .act-tag.type-award     { border-color: #f7c94a; color: #f7c94a; }
+    .act-tag.type-leadership{ border-color: #f08080; color: #f08080; }
+    .act-title { font-size: 1rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+    .act-desc  { font-size: 0.83rem; font-weight: 300; color: var(--gray-300); line-height: 1.6; }
+    .act-date  { font-size: 0.78rem; color: var(--gray-500); white-space: nowrap; }
+    @media (max-width: 640px) { .activity-row { grid-template-columns: 1fr; gap: 0.5rem; } .act-date { display: none; } }
+
+    /* PROJECTS */
+    .project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .project-card { background: var(--white); border-radius: var(--radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .project-img-slot { height: 200px; background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; color: var(--gray-300); border-bottom: 1px solid var(--gray-100); }
+    .project-body { padding: 1.5rem; }
+    .project-title { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; letter-spacing: -0.01em; }
+    .project-meta  { font-size: 0.75rem; color: var(--gray-300); margin-bottom: 0.75rem; }
+    .project-desc  { font-size: 0.88rem; font-weight: 300; color: var(--gray-500); line-height: 1.7; margin-bottom: 1rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag { font-size: 0.7rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--gray-50); border: 1px solid var(--gray-100); color: var(--gray-500); }
+    @media (max-width: 620px) { .project-grid { grid-template-columns: 1fr; } }
+
+    /* GALLERY */
+    .gallery-mosaic { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .gallery-mosaic .g-item:first-child { grid-column: 1/3; grid-row: 1/3; }
+    .gallery-item { border-radius: var(--radius-sm); overflow: hidden; background: var(--gray-50); aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--gray-300); cursor: pointer; transition: opacity 0.25s; position: relative; }
+    .gallery-mosaic .g-item:first-child .gallery-item { aspect-ratio: auto; height: 100%; min-height: 300px; }
+    .gallery-item:hover { opacity: 0.85; }
+    .gallery-item .g-label { position: absolute; bottom: 12px; left: 12px; font-size: 0.72rem; font-weight: 500; color: var(--gray-500); background: rgba(255,255,255,0.75); padding: 3px 10px; border-radius: 20px; }
+    .gallery-intro { margin-bottom: 2rem; }
+    @media (max-width: 560px) { .gallery-mosaic { grid-template-columns: repeat(2,1fr); } .gallery-mosaic .g-item:first-child { grid-column: 1/3; grid-row: auto; } .gallery-mosaic .g-item:first-child .gallery-item { min-height: 180px; } }
+
+    /* VIDEOS */
+    .video-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .video-card { background: var(--gray-900); border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+    .video-embed-slot { width: 100%; aspect-ratio: 16/9; background: var(--gray-700); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; color: var(--gray-500); padding: 1rem; text-align: center; line-height: 1.6; }
+    .video-body { padding: 1.25rem; }
+    .video-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .video-meta  { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.5rem; }
+    .video-desc  { font-size: 0.83rem; font-weight: 300; color: var(--gray-300); line-height: 1.65; }
+    @media (max-width: 600px) { .video-grid { grid-template-columns: 1fr; } }
+
+    /* CONTACT */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 2.5rem; }
+    .contact-info-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-info-item dt { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-300); margin-bottom: 4px; }
+    .contact-info-item dd { font-size: 0.95rem; color: var(--gray-900); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-300); display: block; margin-bottom: 5px; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--gray-100); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 0.92rem; background: var(--white); color: var(--gray-900); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,113,227,0.12); }
+    .contact-form textarea { resize: vertical; min-height: 110px; }
+    .btn-apple { display: inline-block; padding: 0.65rem 1.75rem; background: var(--blue); color: var(--white); border: none; border-radius: 980px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.2s; align-self: flex-start; }
+    .btn-apple:hover { background: #0077ed; }
+    @media (max-width: 680px) { .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* FOOTER */
+    #footer { background: var(--black); color: var(--gray-500); padding: 2.5rem 0; text-align: center; font-size: 0.78rem; line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    /* ADMIN MODAL */
+    #admin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); z-index: 999; align-items: center; justify-content: center; }
+    #admin-modal.open { display: flex; }
+    .modal-box { background: rgba(28,28,30,0.96); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 2.5rem; width: 100%; max-width: 360px; }
+    .modal-box h2 { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    .modal-field { margin-bottom: 1rem; }
+    .modal-field label { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-500); margin-bottom: 5px; }
+    .modal-field input { width: 100%; padding: 0.65rem 0.875rem; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(255,255,255,0.06); font-family: var(--font-sans); font-size: 0.9rem; color: var(--white); outline: none; transition: border-color 0.2s; }
+    .modal-field input:focus { border-color: var(--blue); }
+    #admin-error { font-size: 0.78rem; color: #ff6b6b; margin-top: 0.4rem; display: none; }
+    .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .btn-cancel { flex: 1; padding: 0.65rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 980px; background: transparent; color: var(--gray-300); font-family: var(--font-sans); font-size: 0.88rem; cursor: pointer; }
+    .btn-login  { flex: 2; padding: 0.65rem; border: none; border-radius: 980px; background: var(--blue); color: var(--white); font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+    .btn-login:hover { background: #0077ed; }
+
+    #admin-banner { display: none; background: var(--blue); color: var(--white); text-align: center; font-size: 0.8rem; padding: 8px 1rem; position: fixed; bottom: 0; left: 0; right: 0; z-index: 190; }
+    #admin-banner.show { display: block; }
+    #admin-banner button { margin-left: 1rem; background: rgba(255,255,255,0.2); border: none; color: var(--white); border-radius: 20px; padding: 2px 12px; font-size: 0.75rem; cursor: pointer; }
+
+    /* LIGHTBOX */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 800; align-items: center; justify-content: center; }
+    #lightbox.open { display: flex; }
+    #lightbox-content { max-width: 90vw; max-height: 88vh; border-radius: 12px; overflow: hidden; background: var(--gray-700); min-width: 300px; min-height: 200px; display: flex; align-items: center; justify-content: center; color: var(--gray-500); font-size: 0.85rem; text-align: center; line-height: 1.6; padding: 2rem; }
+    #lightbox-close { position: fixed; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: var(--white); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">김민진</span>
+      <ul class="nav-links">
+        <li><a href="#about">자기소개</a></li>
+        <li><a href="#activities">활동</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#gallery">갤러리</a></li>
+        <li><a href="#videos">동영상</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+      <button id="admin-toggle-btn">관리자</button>
+    </div>
+  </nav>
+
+
+  <!-- ① HERO — black -->
+  <section id="hero">
+    <div class="hero-photo-wrap">사진<br>넣기</div>
+    <h1 class="hero-name">김민진</h1>
+    <p class="hero-tagline">【 한 줄 자기소개를 여기에 입력하세요 】</p>
+    <div class="hero-chips">
+      <span class="chip">🏫 ○○고등학교 3학년</span>
+      <span class="chip">📍 서울특별시</span>
+      <span class="chip">✉ example@email.com</span>
+    </div>
+    <p class="hero-bio">
+      안녕하세요, 김민진입니다.<br>
+      관심 분야·꿈·이 포트폴리오를 보는 분께 전하고 싶은 한마디를 여기에 담아 주세요.
+    </p>
+    <div class="hero-scroll-hint">SCROLL</div>
+  </section>
+
+
+  <!-- ② ABOUT — white -->
+  <section id="about" class="sec-white sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">About</span>
+      <h2 class="sec-title">자기소개</h2>
+      <div class="section-divider"></div>
+      <div class="about-layout">
+        <div>
+          <dl class="about-dl">
+            <div class="about-item"><dt>이름</dt><dd>김민진</dd></div>
+            <div class="about-item"><dt>학교</dt><dd>○○고등학교 3학년</dd></div>
+            <div class="about-item"><dt>관심 분야</dt><dd>관심 분야 1, 2</dd></div>
+            <div class="about-item"><dt>희망 전공</dt><dd>희망 전공 / 학과</dd></div>
+            <div class="about-item"><dt>특기</dt><dd>특기 또는 강점</dd></div>
+            <div class="about-item"><dt>좌우명</dt><dd>좌우명 또는 모토</dd></div>
+          </dl>
+        </div>
+        <div class="about-text-col">
+          <p>【 자기소개 1문단 — 성장 과정, 계기, 가치관 등을 자유롭게 작성하세요. 입학사정관이 나를 처음 만나는 순간입니다. 】</p>
+          <p>【 자기소개 2문단 — 목표, 다짐, 앞으로의 계획을 담아도 좋습니다. 구체적인 경험을 곁들이면 더욱 설득력 있어요. 】</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ③ ACTIVITIES — black -->
+  <section id="activities" class="sec-dark sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">Activities</span>
+      <h2 class="sec-title">주요 교내외 활동</h2>
+      <div class="section-divider"></div>
+      <ul class="activity-list" role="list">
+        <li class="activity-row" data-id="act-01">
+          <span class="act-tag type-school">교내활동</span>
+          <div><div class="act-title">활동명을 입력하세요 (예: ○○ 동아리 부장)</div><div class="act-desc">이 활동에서 맡은 역할과 배운 점을 간략히 서술하세요.</div></div>
+          <span class="act-date">2023.03 – 2024.02</span>
+        </li>
+        <li class="activity-row" data-id="act-02">
+          <span class="act-tag type-outside">교외활동</span>
+          <div><div class="act-title">활동명을 입력하세요 (예: ○○ 봉사활동)</div><div class="act-desc">활동 기관과 내용을 서술하세요.</div></div>
+          <span class="act-date">2023.07 – 2023.08</span>
+        </li>
+        <li class="activity-row" data-id="act-03">
+          <span class="act-tag type-award">수상</span>
+          <div><div class="act-title">수상명을 입력하세요 (예: ○○ 경시대회 금상)</div><div class="act-desc">수상 배경과 소감을 간략히 서술하세요.</div></div>
+          <span class="act-date">2024.11</span>
+        </li>
+        <li class="activity-row" data-id="act-04">
+          <span class="act-tag type-leadership">임원</span>
+          <div><div class="act-title">직책 및 활동명을 입력하세요</div><div class="act-desc">어떤 리더십을 발휘했는지 서술하세요.</div></div>
+          <span class="act-date">2024.03 – 현재</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ④ PROJECTS — light gray -->
+  <section id="projects" class="sec-light sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">Projects</span>
+      <h2 class="sec-title">프로젝트 경험</h2>
+      <div class="section-divider"></div>
+      <div class="project-grid">
+        <article class="project-card" data-id="proj-01">
+          <div class="project-img-slot">프로젝트 대표 사진 넣기</div>
+          <div class="project-body">
+            <div class="project-title">프로젝트명을 입력하세요</div>
+            <div class="project-meta">2024.03 – 2024.06 &nbsp;|&nbsp; 역할: 팀장</div>
+            <p class="project-desc">이 프로젝트의 목적, 역할, 결과를 간략히 서술하세요.</p>
+            <div class="tag-row"><span class="skill-tag">키워드 1</span><span class="skill-tag">키워드 2</span><span class="skill-tag">키워드 3</span></div>
+          </div>
+        </article>
+        <article class="project-card" data-id="proj-02">
+          <div class="project-img-slot">프로젝트 대표 사진 넣기</div>
+          <div class="project-body">
+            <div class="project-title">프로젝트명을 입력하세요</div>
+            <div class="project-meta">2024.09 – 2024.11 &nbsp;|&nbsp; 역할: 기획·조사</div>
+            <p class="project-desc">프로젝트 설명을 입력하세요.</p>
+            <div class="tag-row"><span class="skill-tag">키워드 1</span><span class="skill-tag">키워드 2</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ⑤ GALLERY — white -->
+  <section id="gallery" class="sec-white sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">Gallery</span>
+      <h2 class="sec-title">작품 갤러리</h2>
+      <div class="section-divider"></div>
+      <p class="sec-sub gallery-intro">작품 사진을 클릭하면 크게 볼 수 있습니다.</p>
+      <div class="gallery-mosaic">
+        <div class="g-item" data-id="gal-01"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 1<span class="g-label">작품 01</span></div></div>
+        <div class="g-item" data-id="gal-02"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 2<span class="g-label">작품 02</span></div></div>
+        <div class="g-item" data-id="gal-03"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 3<span class="g-label">작품 03</span></div></div>
+        <div class="g-item" data-id="gal-04"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 4<span class="g-label">작품 04</span></div></div>
+        <div class="g-item" data-id="gal-05"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 5<span class="g-label">작품 05</span></div></div>
+        <div class="g-item" data-id="gal-06"><div class="gallery-item" role="button" tabindex="0" data-src="">작품 사진 6<span class="g-label">작품 06</span></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ⑥ VIDEOS — black -->
+  <section id="videos" class="sec-dark sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">Videos</span>
+      <h2 class="sec-title">동영상</h2>
+      <div class="section-divider"></div>
+      <div class="video-grid">
+        <div class="video-card" data-id="vid-01">
+          <!-- <iframe width="100%" style="aspect-ratio:16/9;border:none;" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+          <div class="video-embed-slot">YouTube 링크를 삽입하세요<br><small style="font-size:0.7rem;margin-top:6px;display:block;opacity:.6;">주석 처리된 iframe 태그를 활성화하고<br>VIDEO_ID를 입력하세요</small></div>
+          <div class="video-body">
+            <div class="video-title">동영상 제목을 입력하세요</div>
+            <div class="video-meta">2024.00.00</div>
+            <div class="video-desc">이 영상에 대한 간단한 설명을 입력하세요.</div>
+          </div>
+        </div>
+        <div class="video-card" data-id="vid-02">
+          <div class="video-embed-slot">동영상 2 슬롯</div>
+          <div class="video-body">
+            <div class="video-title">동영상 제목을 입력하세요</div>
+            <div class="video-meta">2024.00.00</div>
+            <div class="video-desc">이 영상에 대한 간단한 설명을 입력하세요.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ⑦ CONTACT — light gray -->
+  <section id="contact" class="sec-light sec-pad">
+    <div class="container reveal">
+      <span class="sec-label">Contact</span>
+      <h2 class="sec-title">연락처</h2>
+      <div class="section-divider"></div>
+      <div class="contact-layout">
+        <dl class="contact-info-list">
+          <div class="contact-info-item"><dt>이메일</dt><dd><a href="mailto:example@email.com">example@email.com</a></dd></div>
+          <div class="contact-info-item"><dt>전화번호</dt><dd>010-0000-0000</dd></div>
+          <div class="contact-info-item"><dt>학교</dt><dd>○○고등학교</dd></div>
+          <div class="contact-info-item"><dt>SNS / 링크</dt><dd><a href="#" target="_blank" rel="noopener">Instagram</a>&nbsp;/&nbsp;<a href="#" target="_blank" rel="noopener">GitHub</a></dd></div>
+        </dl>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div><label for="contact-name">이름</label><input id="contact-name" type="text" placeholder="성함을 입력하세요" /></div>
+          <div><label for="contact-email">이메일</label><input id="contact-email" type="email" placeholder="답장받을 이메일" /></div>
+          <div><label for="contact-message">메시지</label><textarea id="contact-message" placeholder="문의 내용을 입력하세요"></textarea></div>
+          <button type="submit" class="btn-apple">보내기</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <p>© 2025 김민진 &nbsp;·&nbsp; All rights reserved.</p>
+      <p style="margin-top:4px;">이 포트폴리오는 대입 전형 자료로 제작되었습니다.</p>
+    </div>
+  </footer>
+
+
+  <!-- ADMIN MODAL -->
+  <div id="admin-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h2>관리자 로그인</h2>
+      <div class="modal-field"><label for="admin-id">아이디</label><input id="admin-id" type="text" autocomplete="username" placeholder="아이디 입력" /></div>
+      <div class="modal-field"><label for="admin-pw">비밀번호</label><input id="admin-pw" type="password" autocomplete="current-password" placeholder="비밀번호 입력" /><p id="admin-error">아이디 또는 비밀번호가 올바르지 않습니다.</p></div>
+      <div class="modal-actions"><button class="btn-cancel" id="modal-cancel-btn">취소</button><button class="btn-login" id="modal-login-btn">로그인</button></div>
+    </div>
+  </div>
+
+  <div id="admin-banner">✏️ 관리자 모드 활성화 — 각 항목을 클릭해 수정할 수 있습니다.<button id="admin-logout-btn">로그아웃</button></div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <button id="lightbox-close">✕</button>
+    <div id="lightbox-content">이미지 경로(data-src)를 입력해 주세요</div>
+  </div>
+
+
+  <script>
+    /* 관리자 */
+    const ADMIN_ID='qwer1234', ADMIN_PW='qwer1234';
+    let isAdmin=false;
+    const $=id=>document.getElementById(id);
+    const toggleBtn=$('admin-toggle-btn'), modal=$('admin-modal'), cancelBtn=$('modal-cancel-btn');
+    const loginBtn=$('modal-login-btn'), errorMsg=$('admin-error'), banner=$('admin-banner'), logoutBtn=$('admin-logout-btn');
+
+    function openModal(){ modal.classList.add('open'); $('admin-id').focus(); errorMsg.style.display='none'; }
+    function closeModal(){ modal.classList.remove('open'); $('admin-id').value=''; $('admin-pw').value=''; }
+    function login(){
+      if($('admin-id').value.trim()===ADMIN_ID && $('admin-pw').value.trim()===ADMIN_PW){
+        isAdmin=true; closeModal(); banner.classList.add('show'); toggleBtn.textContent='관리자 ✓';
+      } else { errorMsg.style.display='block'; }
+    }
+    function logout(){ isAdmin=false; banner.classList.remove('show'); toggleBtn.textContent='관리자'; }
+
+    toggleBtn.addEventListener('click',()=>isAdmin?logout():openModal());
+    cancelBtn.addEventListener('click',closeModal);
+    logoutBtn.addEventListener('click',logout);
+    loginBtn.addEventListener('click',login);
+    $('admin-pw').addEventListener('keydown',e=>{ if(e.key==='Enter') login(); });
+    modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
+
+    /* 라이트박스 */
+    const lightbox=$('lightbox'), lbContent=$('lightbox-content'), lbClose=$('lightbox-close');
+    document.querySelectorAll('.gallery-item').forEach(item=>{
+      item.addEventListener('click',()=>{
+        const src=item.dataset.src;
+        lbContent.innerHTML=src?`<img src="${src}" alt="작품 사진" style="max-width:90vw;max-height:88vh;border-radius:12px;">`:'이미지 경로(data-src)를 입력해 주세요';
+        lightbox.classList.add('open');
+      });
+      item.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') item.click(); });
+    });
+    lbClose.addEventListener('click',()=>lightbox.classList.remove('open'));
+    lightbox.addEventListener('click',e=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') lightbox.classList.remove('open'); });
+
+    /* 스크롤 리빌 */
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    },{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    /* 문의 폼 */
+    $('contact-form').addEventListener('submit',e=>{ e.preventDefault(); alert('메시지가 전송되었습니다. (실제 전송은 EmailJS 연결 후 동작)'); });
+  </script>
+</body>
+</html>
